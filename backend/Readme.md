@@ -90,16 +90,8 @@ _./public/thumbnails_.
 
 # Acknowledge
 
+Simple hotels mock rest api is from [Lemoncode](https://github.com/Lemoncode/simple-hotels-mock-rest-api)
+
 Original JSON feed extracted from this [apigee/DevJam](https://github.com/apigee/DevJam/blob/master/Resources/hotels-data.json) Github project.
 
 Mock rest-api based on [json-server](https://github.com/typicode/json-server)
-
-# About Basefactor + Lemoncode
-
-We are an innovating team of Javascript experts, passionate about turning your ideas into robust products.
-
-[Basefactor, consultancy by Lemoncode](http://www.basefactor.com) provides consultancy and coaching services.
-
-[Lemoncode](http://lemoncode.net/services/en/#en-home) provides training services.
-
-For the LATAM/Spanish audience we are running an Online Front End Master degree, more info: http://lemoncode.net/master-frontend

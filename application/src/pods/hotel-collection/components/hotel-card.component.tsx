@@ -7,22 +7,29 @@ import IconButton from "@material-ui/core/IconButton/IconButton";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { CardContent, CardMedia, Typography, CardActions, makeStyles, Theme } from "@material-ui/core";
+import { CardContent, CardMedia, Typography, CardActions, makeStyles} from "@material-ui/core";
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 interface Props {
   hotel : HotelEntityVm;
 }
 
-const useStyles = makeStyles((theme : Theme) => ({
-  card: {
-    width: '500px',
-    marginTop: '10px',
-  }
-}));
+type CardProps = {
+  size: boolean;
+}
+
+const useStyles = makeStyles({
+  card: (props: CardProps) => ({
+    width: props.size ? '49.7%' : '100%',
+    marginTop: '1.5rem',
+  })
+});
 
 export const HotelCard = (props : Props) => {
   const {hotel} = props;
-  const classes = useStyles();
+  const matches = useMediaQuery('(min-width:45rem)');
+  const cardProps: CardProps = {size: matches};
+  const classes = useStyles(cardProps);
 
   return (
     <Card className={classes.card}>

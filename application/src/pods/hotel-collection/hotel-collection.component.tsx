@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 
 export const HotelCollectionComponent = (props: Props) => {
     const {hotelCollection} = props;
-    const classes = useStyles();
+    const classes = useStyles({});
 
     return (
         <div className={classes.listLayout}>

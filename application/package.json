@@ -1,7 +1,7 @@
 {
-  "name": "react-typescript-by-sample",
+  "name": "react-hotel-collection",
   "version": "1.0.0",
-  "description": "React Typescript examples",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server  --mode development --inline --hot --open",
@@ -12,7 +12,7 @@
     "typescript",
     "hooks"
   ],
-  "author": "Braulio Diez Botella",
+  "author": "Vanesa López",
   "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -38,6 +38,7 @@
   "dependencies": {
     "@material-ui/core": "^4.0.0",
     "@material-ui/icons": "^4.0.0",
+    "@material-ui/styles": "^4.2.0",
     "axios": "^0.19.0",
     "lc-form-validation": "^2.0.0",
     "react": "^16.8.6",

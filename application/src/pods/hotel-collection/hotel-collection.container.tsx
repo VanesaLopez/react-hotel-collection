@@ -1,9 +1,8 @@
 import * as React from "react";
 import { HotelCollectionComponent } from './hotel-collection.component'
 import { HotelEntityVm } from "./hotel-collection.vm";
-import {getHotelCollection, HotelEntityApi} from './hotel-collection.api';
-import {mapFromApiCollectionToVmCollection} from './hotel-collection.mapper'
-//import { createMockHotelCollection } from "./hotel-collection.mock";
+import { getHotelCollection } from './hotel-collection.api';
+import {mapFromApiCollectionToVmCollection} from './hotel-collection.mapper';
 
 export const HotelCollectionContainer = () => {
     const [hotelCollection, setHotelCollection] = React.useState<HotelEntityVm[]>([]);
