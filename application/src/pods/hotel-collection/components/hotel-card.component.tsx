@@ -12,6 +12,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 interface Props {
   hotel : HotelEntityVm;
+  editHotel: (string) => void;
 }
 
 type CardProps = {
@@ -22,11 +23,19 @@ const useStyles = makeStyles({
   card: (props: CardProps) => ({
     width: props.size ? '49.7%' : '100%',
     marginTop: '1.5rem',
-  })
+  }),
+  cardContent: ({
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center'   
+  }),
+  cardMedia: ({
+    height: 300  
+  }),
 });
 
 export const HotelCard = (props : Props) => {
-  const {hotel} = props;
+  const {hotel, editHotel} = props;
   const matches = useMediaQuery('(min-width:45rem)');
   const cardProps: CardProps = {size: matches};
   const classes = useStyles(cardProps);
@@ -46,15 +55,11 @@ export const HotelCard = (props : Props) => {
         subheader={hotel.address}
       />
        <CardContent>
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center'            
-        }}>
+        <div className={classes.cardContent}>
         <CardMedia
+          className={classes.cardMedia}
             image={hotel.picture}
             title={hotel.name}
-            style={{height: 300}}
           />
         </div>
         <Typography variant="subtitle1" gutterBottom>
@@ -62,7 +67,7 @@ export const HotelCard = (props : Props) => {
           </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="Add to favorites">
+        <IconButton aria-label="Add to favorites" onClick={() => editHotel(hotel.id)}>
           <EditIcon />
         </IconButton>
         <IconButton aria-label="Share">

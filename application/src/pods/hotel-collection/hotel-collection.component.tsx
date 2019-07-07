@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/styles";
 
 interface Props {
     hotelCollection: HotelEntityVm[];
+    editHotel: (string) => void;
 }
 
 const useStyles = makeStyles({
@@ -16,13 +17,17 @@ const useStyles = makeStyles({
 });
 
 export const HotelCollectionComponent = (props: Props) => {
-    const {hotelCollection} = props;
+    const {hotelCollection, editHotel} = props;
     const classes = useStyles({});
 
     return (
         <div className={classes.listLayout}>
            {
-            hotelCollection.map((hotel) => <HotelCard key={hotel.id} hotel={hotel}/>)
+            hotelCollection.map((hotel) => <HotelCard 
+              key={hotel.id} 
+              hotel={hotel}
+              editHotel={editHotel}
+              />)
           } 
           </div>
   );
