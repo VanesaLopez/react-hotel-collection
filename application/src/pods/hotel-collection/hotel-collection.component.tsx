@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/styles";
 interface Props {
     hotelCollection: HotelEntityVm[];
     editHotel: (string) => void;
+    deleteHotel: (string) => void;
 }
 
 const useStyles = makeStyles({
@@ -17,7 +18,7 @@ const useStyles = makeStyles({
 });
 
 export const HotelCollectionComponent = (props: Props) => {
-    const {hotelCollection, editHotel} = props;
+    const {hotelCollection, editHotel, deleteHotel} = props;
     const classes = useStyles({});
 
     return (
@@ -27,6 +28,7 @@ export const HotelCollectionComponent = (props: Props) => {
               key={hotel.id} 
               hotel={hotel}
               editHotel={editHotel}
+              deleteHotel={deleteHotel}
               />)
           } 
           </div>

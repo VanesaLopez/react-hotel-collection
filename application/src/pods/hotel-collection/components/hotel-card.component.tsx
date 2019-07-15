@@ -13,6 +13,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 interface Props {
   hotel : HotelEntityVm;
   editHotel: (string) => void;
+  deleteHotel: (string) => void;
 }
 
 type CardProps = {
@@ -35,7 +36,7 @@ const useStyles = makeStyles({
 });
 
 export const HotelCard = (props : Props) => {
-  const {hotel, editHotel} = props;
+  const {hotel, editHotel, deleteHotel} = props;
   const matches = useMediaQuery('(min-width:45rem)');
   const cardProps: CardProps = {size: matches};
   const classes = useStyles(cardProps);
@@ -44,7 +45,7 @@ export const HotelCard = (props : Props) => {
     <Card className={classes.card}>
       <CardHeader
         avatar={
-          <Avatar aria-label="hotel">{hotel.rating}</Avatar>
+          <Avatar aria-label={`Rating ${hotel.name}`}>{hotel.rating}</Avatar>
         }
         action={
             <IconButton>
@@ -67,10 +68,10 @@ export const HotelCard = (props : Props) => {
           </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="Add to favorites" onClick={() => editHotel(hotel.id)}>
+        <IconButton aria-label={`Edit ${hotel.name}`} onClick={() => editHotel(hotel.id)}>
           <EditIcon />
         </IconButton>
-        <IconButton aria-label="Share">
+        <IconButton aria-label={`Delete ${hotel.name}`} onClick={() => deleteHotel(hotel.id)}>
           <DeleteIcon />
         </IconButton>        
       </CardActions>

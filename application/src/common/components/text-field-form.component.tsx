@@ -1,6 +1,5 @@
 import * as React from 'react';
 import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography/Typography';
 
 interface Props {
     name : string;
@@ -9,6 +8,9 @@ interface Props {
     value : string;
     error? : string;
     type?: string;
+    rows?: number;
+    rowsMax?: number;
+    multiline?: boolean;
     onBlur?: (field: string, value) => void;
 }
 
@@ -22,8 +24,8 @@ const handleBlur = (field: string, onBlur) => e => {
     }
 };
 
-export const TextFieldForm : React.FC<Props> = (props) =>  {
-    const {name, label, onChange,value, error, type, onBlur} = props;
+export const TextFieldForm: React.FC<Props> = (props) =>  {
+    const {name, label, onChange,value, error, type, onBlur, multiline, rows, rowsMax} = props;
   
     return (
             <TextField
@@ -31,6 +33,9 @@ export const TextFieldForm : React.FC<Props> = (props) =>  {
                 margin="normal"
                 value={value}
                 type={type}
+                multiline={multiline ? multiline : false}
+                rows={rows}
+                rowsMax={rowsMax}
                 onChange={handleChange(name, onChange)}
                 onBlur={handleBlur(name, onBlur)}
                 error={Boolean(error)}
@@ -41,6 +46,8 @@ export const TextFieldForm : React.FC<Props> = (props) =>  {
 
 TextFieldForm.defaultProps = {
     type: 'text',
+    rows: 3,
+    rowsMax: 5,
 }
   
   
