@@ -10,29 +10,36 @@ import useGlobal from "../../store";
 interface Props extends RouteComponentProps {}
 
 export const HotelCollectionContainerWithRouter = (props: Props) => {
-    const [globalState, globalActions] = useGlobal();
+  const [globalState, globalActions] = useGlobal();
 
-    const editHotel = (hotelId: string) => {      
-      props.history.push(routesLinks.hotelEdit(hotelId));
-      
+  const editHotel = (hotelId: string) => {      
+    props.history.push(routesLinks.hotelEdit(hotelId));
+  }
+
+  React.useEffect(() => {
+    if (!globalState.hotelCollection.length) {
+      getHotelCollection().then((result) => {
+        const hotelCollectionVm = mapFromApiCollectionToVmCollection(result);
+        globalActions.setHotelCollection(hotelCollectionVm);      
+      })
     }
+  },[]);
 
-    React.useEffect(() => {
-        getHotelCollection().then((result) => {
-          const hotelCollectionVm = mapFromApiCollectionToVmCollection(result);
-          globalActions.setHotelCollection(hotelCollectionVm);
-          globalActions.changeHotel(hotelCollectionVm[0]);
-        })
-      },[]);
-      
-    return (
-      <>
-        <HotelCollectionComponent 
-          hotelCollection={globalState.hotelCollection}
-          editHotel={editHotel}
-        />
-        </>
-    );
+  const deleteHotel= (id: string): void => {
+    // TODO: Api call
+    const newHotelCollection = globalState.hotelCollection.filter(h => h.id !== id);
+    globalActions.setHotelCollection(newHotelCollection);    
+  };
+
+  return (
+  <>
+    <HotelCollectionComponent 
+      hotelCollection={globalState.hotelCollection}
+      editHotel={editHotel}
+      deleteHotel={deleteHotel}
+    />
+    </>
+  );
 }
 
 export const HotelCollectionContainer = withRouter<Props>(HotelCollectionContainerWithRouter);

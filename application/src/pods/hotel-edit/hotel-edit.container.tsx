@@ -12,6 +12,8 @@ interface Props extends RouteComponentProps {}
 export const HotelEditWithRouter = (props: Props) => {
   const [hotelEditFormErrors, setHotelEditFormErrors] = React.useState<HotelEditFormErrors>(createDefaultHotelEditFormErrors());
   const [hotel, setHotel] = React.useState<HotelEntityVm>();
+  const [error, seterror] = React.useState(false);
+
 
   React.useEffect(() => {
     const id = props.match.params['id'];
@@ -36,6 +38,7 @@ export const HotelEditWithRouter = (props: Props) => {
       .validateField(hotel, field, value)
       .then(fieldValidationResult => {
         if (fieldValidationResult) {
+          seterror(!fieldValidationResult.succeeded);
           setHotelEditFormErrors({
             ...hotelEditFormErrors,
             [field]: fieldValidationResult
@@ -50,13 +53,13 @@ export const HotelEditWithRouter = (props: Props) => {
     alert(`Save hotel: ${hotel.id}`);
     goBack();
   }
-
     
   return (<HotelEditComponent
     hotel={hotel}
     handleOnChange={handleOnChange}
     formErrors={hotelEditFormErrors}
     saveHotel={saveHotel}
+    disabled={error}
     />
   );
 }
