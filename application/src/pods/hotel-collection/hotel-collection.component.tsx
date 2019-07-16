@@ -1,7 +1,8 @@
 import * as React from "react";
+import { makeStyles } from "@material-ui/styles";
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { HotelEntityVm } from "./hotel-collection.vm";
 import { HotelCard } from "./components/hotel-card.component";
-import { makeStyles } from "@material-ui/styles";
 
 interface Props {
     hotelCollection: HotelEntityVm[];
@@ -14,7 +15,12 @@ const useStyles = makeStyles({
     display: 'flex',
     flexWrap:'wrap',
     justifyContent: 'space-between',
-  }
+  },
+    progress: {
+      justifyContent: "center",
+      margin: "auto",
+      marginTop: "2rem",
+    }
 });
 
 export const HotelCollectionComponent = (props: Props) => {
@@ -23,13 +29,17 @@ export const HotelCollectionComponent = (props: Props) => {
 
     return (
         <div className={classes.listLayout}>
-           {
-            hotelCollection.map((hotel) => <HotelCard 
-              key={hotel.id} 
-              hotel={hotel}
-              editHotel={editHotel}
-              deleteHotel={deleteHotel}
-              />)
+           { hotelCollection.length ?
+              hotelCollection.map((hotel) => <HotelCard 
+                key={hotel.id} 
+                hotel={hotel}
+                editHotel={editHotel}
+                deleteHotel={deleteHotel}
+                />)
+              :
+              <CircularProgress 
+                className={classes.progress}
+                size={100} />
           } 
           </div>
   );

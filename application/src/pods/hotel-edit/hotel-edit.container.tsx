@@ -45,11 +45,18 @@ export const HotelEditWithRouter = (props: Props) => {
 
   };
 
+  const saveHotel = (hotel: HotelEntityVm) => {
+    // TODO: add api call
+    alert(`Save hotel: ${hotel.id}`);
+    goBack();
+  }
+
     
   return (<HotelEditComponent
     hotel={hotel}
     handleOnChange={handleOnChange}
     formErrors={hotelEditFormErrors}
+    saveHotel={saveHotel}
     />
   );
 }

@@ -4,11 +4,10 @@ import {
   WithStyles,
   withStyles
 } from "@material-ui/core/styles";
+import { Button } from "@material-ui/core";
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { TextFieldForm, RatingForm } from "common/components";
-import { TextField, Button } from "@material-ui/core";
 import { HotelEntityVm, HotelEditFormErrors } from "../hotel-collection/hotel-collection.vm";
-// import { HotelEntityVm, HotelFormErrors } from "./hotel-edit.vm";
-// import { LookupEntity } from "core";
 
 const styles = () =>
   createStyles({
@@ -21,6 +20,11 @@ const styles = () =>
     picture: {
       maxWidth: "100%",
       height: "15rem"
+    },
+    progress: {
+      justifyContent: "center",
+      margin: "auto",
+      marginTop: "2rem",
     }
   });
 
@@ -28,15 +32,16 @@ interface Props extends WithStyles<typeof styles> {
   hotel: HotelEntityVm;
   handleOnChange: (field: string, value: any) => void;
   formErrors: HotelEditFormErrors;
+  saveHotel: (hotel: HotelEntityVm) => void;
 }
 
 export const HotelEditComponentInner = (props: Props) => {
-  const { classes, hotel, handleOnChange, formErrors } = props;
-
+  const { classes, hotel, handleOnChange, formErrors, saveHotel } = props;
+  
   const displayHotel = () => {
     if (hotel) {
       return (      
-        <div className={classes.formContainer}>
+        <>
           <TextFieldForm
             label="Name"
             name="name"
@@ -72,19 +77,23 @@ export const HotelEditComponentInner = (props: Props) => {
             error={formErrors.description.errorMessage}
           />
     
-          <Button variant="contained" color="primary" onClick={()=>{}}>
+          <Button variant="contained" color="primary" onClick={()=>{ saveHotel(hotel) }}>
             Save
           </Button>
-        </div>
+        </>
       );
 
     } else {
-      return <div>esperando ....</div>;
+      return <CircularProgress 
+        className={classes.progress}
+        size={100} />;
     }
   };
 
-  return (    
-    displayHotel()  
+  return (   
+    <div className={classes.formContainer}>
+      {displayHotel()}
+    </div> 
   );
 };
 

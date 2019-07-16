@@ -23,8 +23,9 @@ export const HotelCollectionContainerWithRouter = (props: Props) => {
   };
 
   const deleteHotel= (id: string): void => {
+    // TODO: Api call
     const newHotelCollection = hotelCollection.filter(h => h.id !== id);
-    setHotelCollection(newHotelCollection);
+    setHotelCollection(newHotelCollection);    
   };
 
   return (
