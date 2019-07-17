@@ -7,7 +7,9 @@ import {
 import { Button } from "@material-ui/core";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { TextFieldForm, RatingForm } from "common/components";
-import { HotelEntityVm, HotelEditFormErrors } from "../hotel-collection/hotel-collection.vm";
+import { HotelEntityVm } from "../hotel-collection/hotel-collection.vm";
+import useGlobal from "../../store";
+import { HotelEditFormValidation } from "./hotel-edit.validation";
 
 const styles = () =>
   createStyles({
@@ -29,60 +31,83 @@ const styles = () =>
   });
 
 interface Props extends WithStyles<typeof styles> {
-  hotel: HotelEntityVm;
-  handleOnChange: (field: string, value: any) => void;
-  formErrors: HotelEditFormErrors;
-  saveHotel: (hotel: HotelEntityVm) => void;
-  disabled: boolean;
+  goBack: () => void;
 }
 
 export const HotelEditComponentInner = (props: Props) => {
-  const { classes, hotel, handleOnChange, formErrors, saveHotel, disabled } = props;
+  const [globalState,  globalActions] = useGlobal();
+  const { classes, goBack } = props;
+
+  const handleOnChange = (field: string, value: any) => {
+    globalActions.setHotel({
+      ...globalState.hotel,
+      [field]: value
+    });
+
+    HotelEditFormValidation
+      .validateField(globalState.hotel, field, value)
+      .then(fieldValidationResult => {
+        if (fieldValidationResult) {
+          globalActions.setError(!fieldValidationResult.succeeded);
+          globalActions.setHotelEditFormErrors({
+            ...globalState.hotelEditFormErrors,
+            [field]: fieldValidationResult
+          });
+        }
+      });
+
+  };
+
+  const saveHotel = (hotel: HotelEntityVm) => {
+    // TODO: add api call
+    globalActions.changeHotel(hotel);
+    goBack();
+  }  
   
   const displayHotel = () => {
-    if (hotel) {
+    if (globalState.hotel) {
       return (      
         <>
           <TextFieldForm
             label="Name"
             name="name"
-            value={hotel.name}
+            value={globalState.hotel.name}
             onChange={handleOnChange}
-            error={formErrors.name.errorMessage}
+            error={globalState.hotelEditFormErrors.name.errorMessage}
           />
 
-          <img className={classes.picture} src={hotel.picture} />
+          <img className={classes.picture} src={globalState.hotel.picture} />
 
           <TextFieldForm
              label="Picture"
              name="picture"
-             value={hotel.picture}
+             value={globalState.hotel.picture}
              onChange={handleOnChange}
-             error={formErrors.picture.errorMessage}
+             error={globalState.hotelEditFormErrors.picture.errorMessage}
           />
     
           <RatingForm
             name="rating"
-            value={hotel.rating}
+            value={globalState.hotel.rating}
             max={5}
             onChange={handleOnChange}
-            error={formErrors.rating.errorMessage}
+            error={globalState.hotelEditFormErrors.rating.errorMessage}
           />
     
           <TextFieldForm
             name="description"
             label="Description"
-            value={hotel.description}
+            value={globalState.hotel.description}
             multiline={true}
             onChange={handleOnChange}
-            error={formErrors.description.errorMessage}
+            error={globalState.hotelEditFormErrors.description.errorMessage}
           />
     
           <Button 
-            disabled={disabled}
+            disabled={globalState.error}
             variant="contained" 
             color="primary" 
-            onClick={()=>{ saveHotel(hotel) }}>
+            onClick={()=>{ saveHotel(globalState.hotel) }}>
             Save
           </Button>
         </>
