@@ -1,11 +1,11 @@
-# react-hotel-Collection
+# react-hotel-collection
 
 This repository contains an application to show a collection of hotels and editing in two different ways and a server to obtain the hotels
 
 # application
 Application that shows a collection of hotels and form for the edition using hooks.
 
-# global-state-aplication
+# global-state-application
 Application that shows a collection of hotels and form for the edition using global hooks.
 
 #backend

@@ -1,4 +1,4 @@
-# global-state-aplication
+# global-state-application
 Application that shows a collection of hotels and form for the edition using global hooks.
 
 # How it works
