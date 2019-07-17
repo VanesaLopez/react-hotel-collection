@@ -8,7 +8,7 @@ Application that shows a collection of hotels and form for the edition using hoo
 # global-state-application
 Application that shows a collection of hotels and form for the edition using global hooks.
 
-#backend
+# backend
 A very simple local test rest-api, ideal to make quick front end examples, or to share with students.
 
 # Acknowledge
