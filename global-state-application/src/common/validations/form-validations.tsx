@@ -34,7 +34,6 @@ export const textSize = (value, viewModel, customParams) => {
 };
 
 export const validateImageFormat = (value, viewModel, customParams) => {
-    console.log(value);
     const ext = value.substring(
         value.lastIndexOf('.') + 1).toLowerCase();
     const mimeType = ["jpeg", "jpg", "png", "gif", "bmp"];
