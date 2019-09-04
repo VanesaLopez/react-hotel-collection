@@ -37,7 +37,7 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 export const HotelEditComponentInner = (props: Props) => {
-  const { classes, hotel, handleOnChange, formErrors, saveHotel } = props;
+  const { classes, hotel, handleOnChange, formErrors, saveHotel, disabled } = props;
   
   const displayHotel = () => {
     if (hotel) {
